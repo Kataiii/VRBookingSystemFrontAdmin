@@ -8,7 +8,7 @@ interface InputProps{
 
 const Input: React.FC<InputProps> = ({placeholder, type}) => {
     return(
-        <input className={styles.Input} type={type} placeholder={placeholder}/>
+        <input className={[styles.Input, styles].join(' ')} type={type} placeholder={placeholder}/>
     )
 }
 
