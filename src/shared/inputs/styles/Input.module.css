@@ -1,0 +1,18 @@
+.Input{
+    display: flex;
+    height: 55px;
+    padding: 0px 10px 0px 16px;
+    align-items: center;
+}
+
+.Input::placeholder{
+    color: #A7B0BF;
+}
+
+.DarkInput{
+    background-color: #363E4B;
+}
+
+.LigthInput{
+    background-color: #F4F7FA;
+}

@@ -1,0 +1,9 @@
+.PrimaryButton{
+    display: flex;
+    padding: 17px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-color: #0450C0;
+    color: #F4F7FA;
+}
