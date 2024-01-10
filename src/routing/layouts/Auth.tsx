@@ -1,7 +1,9 @@
+import FormLogin from "../../widgets/FormLogin";
+
 const Auth: React.FC = () => {
     return(
         <div>
-            <h1>Auth</h1>
+            <FormLogin/>
         </div>
     )
 }
