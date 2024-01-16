@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { Context } from "../..";
 import LoadingPage from "../../pages/LoadingPage";
-import RoleGuard from "./RoleGuard";
 
 
 const AuthGuard: React.FC = observer(() => {
@@ -11,9 +10,12 @@ const AuthGuard: React.FC = observer(() => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        store.refresh();
-        setIsLoading(false);
-    })
+        const response = store.refresh();
+        response.then((response) => {
+            setIsLoading(false);
+        });
+    }, []);
+    
 
     return(
         isLoading
