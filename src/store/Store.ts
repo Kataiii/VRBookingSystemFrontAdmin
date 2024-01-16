@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { IClient } from "../enemy/Client";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { AuthResponse } from "../enemy/response/AuthResponse";
 import { API_URL } from "../http/Index";
 
@@ -31,15 +31,16 @@ export default class Store{
         this.isFailAuth = isFailAuth;
     }
 
-    async refresh(){
+    refresh = async () : Promise<AxiosResponse<AuthResponse, any> | null> => {
         try{
-            const response = await axios.get<AuthResponse>(`${API_URL}/auth/refresh`, {withCredentials: true});
-            console.log(response.status);
+            const response : AxiosResponse<AuthResponse, any> = await axios.get<AuthResponse>(`${API_URL}/auth/refresh`, {withCredentials: true});
             this.setClient(response.data.account);
             this.setAccess(response.data.accessToken);
             this.setIsAuth(true);
+            return response;
         } catch(e: any){
-            return e.response?.status;
+            console.log(e.response?.status);
+            return null;
         }
     }
 }

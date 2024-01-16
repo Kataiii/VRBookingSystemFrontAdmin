@@ -3,37 +3,49 @@ import { Context } from "../..";
 import ErrorPage from "../../pages/ErrorPage";
 import LoadingPage from "../../pages/LoadingPage";
 
-interface RoleGuardProps{
+interface RoleGuardProps {
     children: React.ReactElement;
 }
 
-const RoleGuard: React.FC<RoleGuardProps> = ({children}) => {
-    const {store} = useContext(Context);
+const RoleGuard: React.FC<RoleGuardProps> = ({ children }) => {
+    const { store } = useContext(Context);
     const [isLoading, setIsLoading] = useState(true);
     const [hasRole, setHasRole] = useState<boolean>(false);
 
     useEffect(() => {
-        const role = store.client.roles.find(item => item.name == 'admin');
-        if(role == null){
-            setHasRole(false);
-
+        if (!store.isAuth) {
+            const response = store.refresh();
+            response.then((response) => {
+                checkRole();
+                return;
+            });
         }
         else{
+            checkRole();
+        }
+    })
+
+    const checkRole = () => {
+        const role = store.client.roles.find(item => item.name == 'admin');
+        if (role == null) {
+            setHasRole(false);
+        }
+        else {
             setHasRole(true);
         }
         setIsLoading(false);
-    })
+    }
 
-    return(
+    return (
         isLoading
-        ?
-            <LoadingPage/>
-        :
-            hasRole
             ?
-                children
+            <LoadingPage />
             :
-                <ErrorPage/>
+            hasRole
+                ?
+                children
+                :
+                <ErrorPage />
     )
 }
 

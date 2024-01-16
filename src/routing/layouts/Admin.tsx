@@ -10,7 +10,7 @@ import {
 import { ThemeContext } from "../../ThemeProvider";
 
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Sider } = Layout;
 
 type MenuItem = Required<MenuProps>['items'][number];
 
