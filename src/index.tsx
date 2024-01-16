@@ -15,9 +15,9 @@ interface IState {
   rooms: RoomStore
 }
 
-const store = new Store();
-const auth = new Auth();
-const rooms = new RoomStore();
+export const store = new Store();
+export const auth = new Auth();
+export const rooms = new RoomStore();
 
 export const Context = createContext<IState>(
   { 

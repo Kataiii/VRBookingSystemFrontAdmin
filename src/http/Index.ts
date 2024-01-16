@@ -1,6 +1,5 @@
 import axios from "axios";
-import { useContext } from "react";
-import { Context } from "..";
+import { store } from "..";
 import { AuthResponse } from "../enemy/response/AuthResponse";
 
 export const API_URL = 'http://localhost:5000';
@@ -11,8 +10,9 @@ const $api = axios.create({
     baseURL: API_URL
 });
 
+
+
 $api.interceptors.request.use((config) => {
-    const {store} = useContext(Context); 
     config.headers.Authorization = `Bearer ${store.access}`;
     config.headers.Accept = 'application/json';
     return config;
@@ -26,7 +26,6 @@ $api.interceptors.response.use((config) => {
         origrnalRequest._isRetry = true;
         try{
             const response = await axios.get<AuthResponse>(`${API_URL}/auth/refresh`, {withCredentials: true});
-            const {store} = useContext(Context);
             store.setAccess(response.data.accessToken);
             store.setIsAuth(true);
             return $api.request(origrnalRequest);

@@ -4,14 +4,12 @@ import { useContext, useEffect } from "react";
 import { Context } from "..";
 
 const BookingTable: React.FC = observer(() => {
-    const { rooms } = useContext(Context);
+    const { store, rooms } = useContext(Context);
 
     useEffect(() => {
-        console.log('FFFFFFFFFFFFFFFFFF');
-        // const responce = rooms.getRooms();
-        // responce.then((responce) => {
-        //     console.log(rooms.notOccupiedRooms);
-        // })
+        const responce = rooms.getRooms(store.access);
+        responce.then((responce) => {
+        })
     }, [])
 
     return(
