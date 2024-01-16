@@ -1,7 +1,9 @@
+import BookingTable from "../widgets/BookingTable";
+
 const BookingPage: React.FC = () => {
     return(
         <div>
-            <h1>BookingPage</h1>
+            <BookingTable/>
         </div>
     )
 }

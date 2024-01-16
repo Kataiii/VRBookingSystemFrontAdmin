@@ -12,7 +12,6 @@ export interface IFormLogin {
 }
 
 
-
 class Auth {
     
     private formLogin: IFormLogin = {

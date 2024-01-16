@@ -12,7 +12,8 @@ const $api = axios.create({
 });
 
 $api.interceptors.request.use((config) => {
-    config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
+    const {store} = useContext(Context); 
+    config.headers.Authorization = `Bearer ${store.access}`;
     config.headers.Accept = 'application/json';
     return config;
 });
@@ -27,7 +28,6 @@ $api.interceptors.response.use((config) => {
             const response = await axios.get<AuthResponse>(`${API_URL}/auth/refresh`, {withCredentials: true});
             const {store} = useContext(Context);
             store.setAccess(response.data.accessToken);
-            localStorage.setItem('token', response.data.accessToken);
             store.setIsAuth(true);
             return $api.request(origrnalRequest);
         } catch(e){
