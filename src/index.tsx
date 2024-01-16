@@ -5,15 +5,23 @@ import router from './routing/Router';
 import { ThemeProvider } from './ThemeProvider';
 import Store from './store/Store';
 import { createContext } from 'react';
+import Auth from './store/Auth';
 
 
 interface IState {
-  store: Store
+  store: Store,
+  auth: Auth
 }
 
 const store = new Store();
+const auth = new Auth();
 
-export const Context = createContext<IState>({ store });
+export const Context = createContext<IState>(
+  { 
+    store,
+    auth
+  }
+);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -21,7 +29,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <Context.Provider value={{
-    store
+    store, auth
   }}>
     <ThemeProvider>
       <RouterProvider router={router} />

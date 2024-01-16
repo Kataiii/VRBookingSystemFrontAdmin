@@ -22,7 +22,7 @@ const AuthGuard: React.FC = observer(() => {
         :
             store.isAuth
             ?
-                <RoleGuard/>
+                <Navigate to={'/admin'}/>
             :
                 <Navigate to={'/login'}/>
     )

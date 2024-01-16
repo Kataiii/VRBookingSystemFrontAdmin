@@ -1,10 +1,20 @@
-import { RouteObject } from "react-router-dom";
+import { Outlet, RouteObject } from "react-router-dom";
+import RoleGuard from "../guards/RoleGuard";
 import Admin from "../layouts/Admin";
 
 
 const AdminRoute: RouteObject = {
     path: '/admin',
-    element: <Admin/>
+    element:
+        <RoleGuard>
+            <Outlet context={[]} />
+        </RoleGuard>,
+    children: [
+        {
+            path: "/admin",
+            element: <Admin />
+        },
+    ]
 }
 
 
